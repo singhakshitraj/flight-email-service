@@ -9,10 +9,11 @@ class FlightChangeModel(BaseModel):
     new_value:str
     modified_at:str|datetime
 
-
-ADD_SUBSCRIPTION='add-subscription'
+# TOPICS
+ADD_SUBSCRIPTION='subscriptions'
 FLIGHT_CHANGES='flight-changes'
 SENT_NOTIFICATIONS='sent-notifications'
 
+#KAFKA CONSUMER CONFIG
 CONSUMER_OF = [FLIGHT_CHANGES, ADD_SUBSCRIPTION]
 PRODUCE_TO = [SENT_NOTIFICATIONS]

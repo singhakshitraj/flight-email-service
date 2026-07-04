@@ -1,9 +1,10 @@
 import asyncpg
 import asyncio
 import os
-
+from dotenv import load_dotenv
 from consumer import consume, generate_error_and_exit
 
+load_dotenv()
 
 async def create_connection():
     try:

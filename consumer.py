@@ -48,7 +48,7 @@ async def consume(db: Connection):
                         SELECT STRING_AGG(email_id, ', ')
                         FROM subscriptions
                         WHERE flight_id = $1
-                        AND "booking_date" = $2
+                        AND "date" = $2
                     ''', str(flight_change.flight_id), date_today)
                     await email_sender(data, 'flight-change')
                 except ValidationError as e:
