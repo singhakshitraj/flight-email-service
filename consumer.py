@@ -1,5 +1,6 @@
 import asyncio
 import os
+import ssl
 import sys
 from aiokafka import AIOKafkaConsumer
 from aiokafka.errors import KafkaError
@@ -31,11 +32,18 @@ async def consume(db: Connection):
     date_today = datetime.now(tz=timezone.utc).date()
     consumer = None
     try:
+        ca_cert_path = os.environ.get('KAFKA_CA_CERT', 'certs/ca.pem')
+        ssl_context = ssl.create_default_context(cafile=ca_cert_path)
         consumer = AIOKafkaConsumer(
             *CONSUMER_OF,
             bootstrap_servers=os.environ.get('KAFKA_URL'),
             group_id=None,
-            auto_offset_reset='latest'
+            auto_offset_reset='latest',
+            security_protocol='SASL_SSL',
+            sasl_mechanism='PLAIN',
+            sasl_plain_username=os.environ.get('KAFKA_USERNAME'),
+            sasl_plain_password=os.environ.get('KAFKA_PASSWORD'),
+            ssl_context=ssl_context,
         )
         await consumer.start()
         async for message in consumer:
