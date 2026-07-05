@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 from pydantic import BaseModel
 
 
@@ -8,6 +8,12 @@ class FlightChangeModel(BaseModel):
     old_value:str
     new_value:str
     modified_at:str|datetime
+
+
+class SubscriptionModel(BaseModel):
+    flight_id:str
+    email_id:str
+    date:date
 
 # TOPICS
 ADD_SUBSCRIPTION='subscriptions'
