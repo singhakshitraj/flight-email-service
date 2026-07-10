@@ -70,7 +70,7 @@ async def handle_flight_change_event(message, db: Connection):
             FROM subscriptions
             WHERE flight_id = $1
             AND "date" = $2
-        ''', str(flight_change.flight_id), date_today)
+        ''', flight_change.flight_id, date_today)
 
         if not subscriber_emails:
             print(f'No subscribers for flight {flight_change.flight_id} on {date_today}')

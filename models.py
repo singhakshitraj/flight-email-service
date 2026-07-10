@@ -11,7 +11,7 @@ class FlightChangeModel(BaseModel):
 
 
 class SubscriptionModel(BaseModel):
-    flight_id:str
+    flight_id:int
     email_id:str
     date:date
 
