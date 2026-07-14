@@ -47,7 +47,6 @@ _BASE_STYLE = """
     border-top: 1px solid #334155;
     color: #64748b; font-size: 11px;
   }
-  .footer a { color: #60a5fa; text-decoration: none; }
   .divider { height: 1px; background: #334155; margin: 20px 0; }
 </style>
 """
@@ -94,17 +93,17 @@ def flight_change_email(
         timestamp = str(modified_at)
 
     param_display = parameter.replace("_", " ").title()
-    subject = f"✈️ Flight {flight_id} Update — {param_display} Changed"
+    subject = f"Flight {flight_id} Update — {param_display} Changed"
 
     inner = f"""\
       <div class="header">
-        <h1>✈️ Flight Update</h1>
-        <p>Flight {flight_id} • {timestamp}</p>
+        <h1>Flight Update</h1>
+        <p>Flight {flight_id} &bull; {timestamp}</p>
       </div>
       <div class="body">
         <p>
           A change has been detected for <strong>Flight {flight_id}</strong>.
-          Here are the details:
+          Please review the details below.
         </p>
 
         <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
@@ -131,12 +130,11 @@ def flight_change_email(
         <div class="divider"></div>
 
         <p style="font-size: 13px; color: #94a3b8;">
-          You are receiving this email because you subscribed to updates for Flight {flight_id}.
+          You are receiving this notification because you are subscribed to updates for Flight {flight_id}.
         </p>
       </div>
       <div class="footer">
-        Flight Tracker &mdash; Real-time flight notifications<br>
-        <a href="#">Unsubscribe</a> &bull; <a href="#">Manage Preferences</a>
+        &copy; Flight Tracker &mdash; Automated flight change notification
       </div>"""
 
     return subject, _wrap_html(inner)
@@ -155,17 +153,17 @@ def subscription_confirmation_email(
     Returns:
         (subject, html_body)
     """
-    subject = f"✅ Subscribed to Flight {flight_id} on {date}"
+    subject = f"Subscription Confirmed — Flight {flight_id} on {date}"
 
     inner = f"""\
       <div class="header" style="background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);">
-        <h1>✅ Subscription Confirmed</h1>
-        <p>You're all set to receive updates</p>
+        <h1>Subscription Confirmed</h1>
+        <p>You will now receive updates for the flight below</p>
       </div>
       <div class="body">
         <p>
-          Hi there! Your subscription has been confirmed. You will now receive
-          email notifications for any changes to the following flight:
+          Your subscription has been confirmed. You will receive email notifications
+          for any changes to the following flight:
         </p>
 
         <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
@@ -186,13 +184,12 @@ def subscription_confirmation_email(
         <div class="divider"></div>
 
         <p style="font-size: 13px; color: #94a3b8;">
-          We'll notify <strong>{email_id}</strong> whenever gate, terminal,
-          departure time, or status changes for this flight.
+          Notifications will be sent to <strong>{email_id}</strong> for gate, terminal,
+          departure time, and status changes for this flight.
         </p>
       </div>
       <div class="footer">
-        Flight Tracker &mdash; Real-time flight notifications<br>
-        <a href="#">Unsubscribe</a> &bull; <a href="#">Manage Preferences</a>
+        &copy; Flight Tracker &mdash; Automated flight notification service
       </div>"""
 
     return subject, _wrap_html(inner)
